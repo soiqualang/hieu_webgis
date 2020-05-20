@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WEBGIS DU LỊCH Y TẾ</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+        crossorigin="" />
+    <!--Day la thu vien Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Day la thu vien Leaflet-->
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+        crossorigin=""></script>
+	<link rel="icon" href="static/img/icon.png">
+	<link rel="stylesheet" href="static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/owl.carousel.css">
+	<link rel="stylesheet" href="static/css/owl.theme.css">
+	<link rel="stylesheet" href="static/css/responsive.css">
+	<link rel="stylesheet" href="static/css/magnific-popup.css">
+	<link rel="stylesheet" href="static/css/fakeLoader.css">
+	<link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>		
+</head>
+<body>	
+	<!-- header -->
+	<header>
+		<!-- navbar -->
+		<nav class="navbar navbar-default navbar-fixed-top navbar-ng">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+						<span class="sr-only"></span>
+						<i class="fa fa-bars"></i>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse n-link" id="bs-navbar">
+					<ul id="nav" class="nav navbar-nav navbar-right">
+						<li><a href="#home">Giới thiệu</a></li>
+						<li><a href="#search">Tìm kiếm</a></li>
+						<li><a href="#contact">Liên hệ</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- end navbar -->
+		<!-- slider -->
+		<div id="home" class="slider">
+			<div id="slider-home" class="owl-carousel owl-theme">
+				<div class="item">
+					<img src="static/img/slider1.jpg" alt="">
+					<div class="caption">
+						 <h2> WEBGIS DU LỊCH Y TẾ TẠI THÀNH PHỐ HỒ CHÍ MINH</h2>	
+                             <p>Du lịch y tế đang là nhu cầu của rất nhiều du khách tại thành phố Hồ Chí Minh hiện nay. Vì vậy, trang web này sẽ hỗ trợ bạn tìm được bệnh viện theo nhu cầu của bạn dễ dàng mà không mất quá nhiều thời gian. Trang web có các chức năng hiển thị và tìm kiếm. Chức năng tìm kiếm sẽ giúp bạn tìm kiếm bệnh viện theo các tiêu chí được đặt ra, bản đồ sẽ giúp bạn hiển thị các bệnh viện để bạn có cái nhìn khách quan về thông tin không gian của các bệnh viện và các điểm du lịch qua đó bạn có thể tìm kiếm được một bệnh viện phù hợp với bản thân về mặt thông tin thuộc tính cũng như thông tin không gian. Bản đồ có chức năng tìm đường đi sẽ giúp bạn tìm kiếm đường đi phù hợp và nhanh nhất mà không mất thời gian mở trang Googlemap để thực hiện. Hy vọng trang web sẽ hỗ trợ cho bạn thật tốt trong nhu cầu du lịch y tế.
+				             </p>											
+				</div>					
+			</div>
+		</div>
+		<!-- end slider -->
+	</header>
+	<!-- end header -->
+	<!-- search -->
+	<div id="search" class="section" >
+		 <div class="container" style= "width: 100%">	
+     <div id='header' style="width: 100%;height: 80px">		 
+		 <div id = "search-result" style="width: 40%; overflow: scroll; max-height: 500px; color: #000000" >
+			 <div class="widget">
+			<div class="section-head">
+				<h3>Tìm kiếm bệnh viện</h3>
+				<div class="line"></div>
+			</div>		
+			<div class="row">
+			     <!--filterBar-->
+				 <form>
+            <div class="filterBar main-wrap">
+                <div class="filter">
+                    <span>Tên bệnh viện: </span>
+					<input type="text">
+                </div>
+                <div class="filter">
+                    <span>Mức giá : </span>
+                    <select id="sub-gia" name='giaphong'>
+                        <option value="0">Tất cả</option>
+                        <option value="1">Dưới 200 ngàn</option>
+                        <option value="2">200-1 triệu</option>
+                        <option value="3">Trên 1 triệu</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <span>Địa chỉ : </span>
+                    <input type="text">
+                </div>
+				<div class="filter">
+                    </span>Tên hình thức : </span>
+                    <select id="sub-nguoi" name='songuoi' >
+					     <option value="0">Tất cả</option>
+                        <option value="1">Bệnh viện chuyên khoa</option>
+                        <option value="2">Bênh viện đa khoa</option>
+                    </select>
+                </div>
+				<div class="filter">
+                    <span>Loại hình : </span>
+                    <select id="sub-loai" name='loaihinh' >
+					    <option value="0">Tất cả</option>
+                        <option value="1">Bệnh lý chuyên sâu</option>
+						<option value="2">Khám tổng quát</option>
+						<option value="3">Nha khoa</option>
+						<option value="4">Thẩm mỹ</option>
+						<option value="5">Y học cổ truyền</option>
+                    </select>
+                </div>
+			    <div class="filter">
+                    <span> Trong bán kính </span>
+                    <select id="sub-tienich" name="doituong"">
+                        <option value="0">500 m</option>
+                        <option value="1">2km</option>
+                        <option value="2">5km</option>
+                        <option value="3">10km</option>                   
+                    </select>
+                </div>			  
+			</div>			
+				<tr>
+                 <center><td colspan="2" ><button type="submit" >Tìm kiếm</button>
+						</td></center>
+				</tr>
+			</form>
+                 <h4 style ="margin-left: 25px"> Kết quả ss<br></h4> 
+                 <table id="t01"style=" width:100%; font-size:15px; margin-left: 25px;">
+                    <tr>
+					    <th>Mã phòng </th>
+                        <th>Địa chỉ</th>						
+                        <th>Diện tích (m2)</th> 
+                        <th>Giá phòng (triệu đồng)</th>
+                        <th>Số người ở tối đa</th>
+                        <th>Loại hình nhà trọ</th>
+						<th>Quy định giới tính</th>
+						<th>Quy định giờ giấc</th>
+						<th>Tiền điện (đồng/1kwh)</th>
+						<th>Tiền nước(đồng/1m3)</th>
+						<th>Tiền wifi(đồng/1 phòng)</th>
+						<th>Tiền xe(đồng/1xe)</th>
+						<th>Họ tên chủ trọ</th>
+						<th>Số điện thoại</th>
+                    </tr>
+                   {% for diadiem in list_phongtro %}
+                    <tr id='{{diadiem.id_phongtr}}'>
+                        <td><a href='#map'onclick='mapPanTo({{diadiem.x}}, {{diadiem.y}})'>{{diadiem.id_phongtr}}</a></td>						                       
+						<td>{{diadiem.diachi}}</td>						
+                        <td>{{diadiem.dientich}}</td>
+                        <td >{{diadiem.giaphong }}	</td>	
+                        <td>{{diadiem.songuoi}}</td>
+						<td>{{diadiem.loaihinhtr}}</td>
+						<td>{{diadiem.gioitinh}}</td>
+						<td>{{diadiem.giogiac}}</td>	
+					    <td>{{diadiem.tien_dien}}</td>
+						<td>{{diadiem.tien_nuoc}}</td>						
+                        <td>{{diadiem.tien_wifi}}</td>
+                        <td>{{diadiem.tien_guixe}}</td>
+                        <td>{{diadiem.hoten}}</td>
+						<td>{{diadiem.sodienthoai}}</td>	
+                      </tr>						
+                    {% endfor %}
+									                  
+                    </table>
+					 <h4 style ="margin-left: 25px"> Kết quả đối tượng tiện ích <br></h4> 
+                 <table id="t01"style=" width:100%; font-size:15px; margin-left: 25px;">
+                    <tr>
+					    <th >Mã phòng </th>
+                        <th>Địa chỉ</th>						
+                        <th>Tên đối tượng)</th> 
+                        <th>Loại đối tượng</th>                        
+                    </tr>
+                   {% for diadiem in list_phongtro %}
+				   <tr>
+				     <td>  <a href='#map' onclick='mapPanTo({{diadiem.x}}, {{diadiem.y}})'>  {{diadiem.id_phongtr}} </td>               						                       
+						<td>{{diadiem.diachi}}</td>						
+                        <td>{{diadiem.name}}</td>
+						<td>{{diadiem.doituong}}</td>	
+						
+                    {% endfor %}
+					</tr>				                  
+                    </table>
+		    </div>
+			</div>	
+		</div>
+		</div>
+		<div id='maincontent' style="width: 70%;float:right; height: 500px;background: white">		
+          		 <div id='map'  style="width: 80%;margin-left:200px; height: 80%">
+              <h4>  </h4>
+            </div>   
+         </div>
+         </div>      
+     </div>
+	
+	<!-- end search -->
+
+	<!-- statistical -->
+	<!--<div id="statistical" class="section bg-second">
+		<div class="container">
+			<div class="section-head">
+				<h3>Thống kê</h3>
+				<div class="line"></div>
+			</div>
+			 <div class="box box-success">
+			 <div class="thongke">
+                    <span>Thống kê theo  </span>
+                    <select id="tk-quan">
+                                <option value="0">Số phòng</option>
+                                <option value="1">Giá phòng</option>                               												
+                    </select>
+                </div>
+          </div>		
+   </div>									
+		</div>-->
+		 
+	
+
+	<!-- end register -->
+	
+	<!-- singin-->
+
+	<!-- end singin -->
+
+	<!-- gallery -->
+	<div id="gallery" class="section bg-second">
+		<div class="container">			
+			<div class="gallery">				
+				<div class="filtr-container">
+					<div class="row gallery-filter">
+						<div class="col-md-4 col-sm-4 col-xs-6 filtr-item bg-content bg-content" data-category="1">
+							<div class="gallery-content">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div> 
+	<!-- end gallery -->
+
+
+		</div>
+	</div>	
+	
+	<!-- end rate -->
+
+	<!-- footer -->
+	<footer>
+		<div id="contact" class="container">
+			<div class="row">
+				<div class="col-sm-4 col-md-4 col-xs-12">
+					<div class="footer ">
+						<h5>Thông tin về chúng tôi</h5>
+						<p>Đỗ Thảo Hiếu<br/> Email:thaohieu170831@gmail.com
+					</div>
+				</div>												
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
+	<!-- loader -->
+	<div id="fakeLoader"></div>
+	<!-- end loader -->	
+	<!-- script -->
+	<script src="static/js/jquery.min.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/owl.carousel.min.js"></script>
+	<script src="static/js/jquery.scrollToTop.min.js"></script>
+	<script src="static/js/jquery.magnific-popup.min.js"></script>
+	<script src="static/js/jquery.filterizr.min.js"></script>
+	<script src="static/js/fakeLoader.js"></script>
+	<script src="static/js/jquery.nav.js"></script>
+	<script src="static/js/main.js"></script>	
+	<script src="static/js/chart.js"></script>	
+
+	 <script>
+        function mapPanTo(x, y) {
+            if (circle != null) {
+                mymap.removeLayer(circle);
+            }
+            circle = L.circle([x, y], 90);
+            mymap.addLayer(circle);
+
+            mymap.flyTo([x,y], 16);
+        }
+
+
+	var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+	var mymap = L.map('map').setView([10.7820,106.6540], 13);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox.streets'
+	}).addTo(mymap);
+	var bv_wms='http://localhost:8080/geoserver/dulieuyte/wms?';
+        var dbv1002 = L.tileLayer.wms(bv_wms,
+        {
+            layers: 'dulieuyte:dbv1002',
+            tiled: true,
+            format: 'image/png',
+            transparent: true,
+        }
+        ).addTo(map);
+        mymap.addLayer(bv_wms);
+
+		
+        mymap.on('click', function (e) {
+            var x = e.latlng.lat;
+            var y = e.latlng.lng;
+            var xy = ' ' + x + ',' + y;
+            $('#current-location').empty().append(xy);
+        })
+
+        var circle = null;
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        };
+	
+
+    </script> 
+
+</body>
+</html>

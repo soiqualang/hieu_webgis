@@ -1,0 +1,55 @@
+<head>
+	 <link rel="stylesheet" href="//localhost:8080/geoserver/openlayers3/ol.css" type="text/css">
+	<script src="//localhost:8080/geoserver/openlayers3/ol.css"" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js" type="text/javascript"></script>
+	<style>
+.map {
+height: 100%;
+width: 100%;
+}
+</style>
+<script type="text/javascript">
+$("#document").ready(function () {
+var format = 'image/png';
+ 
+var bounds = [106.356437683105,10.3763885498047,107.025276184082,11.1595401763916];
+var bv = new ol.layer.Image({
+source: new ol.source.ImageWMS({
+ratio: 1,
+url: 'http://localhost:8080/geoserver/wms?',
+params: {
+'FORMAT': format,
+'VERSION': '1.1.1',
+STYLES: '',
+LAYERS: 'webgisdlyt',
+}
+})
+});
+var projection = new ol.proj.Projection({
+code: 'EPSG:4326',
+units: 'degrees',
+axisOrientation: 'neu'
+});
+  var map = new ol.Map({
+        controls: control.defaults({
+          attribution: false
+        }).extend([mousePositionControl]),
+        target: 'map',
+        layers: [
+          webgisdlyt
+        ],
+        view: new ol.View({
+           projection: projection
+        })
+      });
+map.getView().fitExtent(bounds, map.getSize());
+//map.getView().fit(bounds, map.getSize());
+});
+ 
+</script>
+ </head>
+ <body>
+ <div id="map" class="map"></div>
+ 
+</body>
+</html>

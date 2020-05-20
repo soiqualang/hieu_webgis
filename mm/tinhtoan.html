@@ -1,0 +1,19 @@
+<h4> Kịch bản du lịch</h4>
+<table style="width:100%; font-size:15px">
+    <tr>
+        <th>STT</th>
+        <th>Các điểm du lịch</th>
+        <th>Tổng thời gian</th>
+    </tr>
+    {% for item in result %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>
+                {% for diadiem in item.path %}
+                {{diadiem.ma_dl}},
+                {% endfor %}
+            </td>
+            <td>{{item.time}}</td>
+        </tr>
+    {% endfor %}
+</table>
